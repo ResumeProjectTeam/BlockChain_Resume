@@ -93,6 +93,36 @@ export class selectUserByCertificateNameComponent implements OnInit {
     });
   }
 
+  getUserList(): Promise<any> {
+    let userList = [];
+    return this.serviceselectUserByCertificateName.getAll()
+    .toPromise()
+    .then((result) => {
+      this.errorMessage = null;
+      result.forEach(userId => {
+        userList.push(userId);
+        
+      });
+      this.myUserList = userList;
+      console.log("myUserList 테스트");
+      console.log(this.myUserList);
+    })
+    .catch((error) => {
+        if(error == 'Server error'){
+            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if(error == '404 - Not Found'){
+        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else{
+            this.errorMessage = error;
+        }
+    });
+  }
+  
+
+
+
 	/**
    * Event handler for changing the checked state of a checkbox (handles array enumeration values)
    * @param {String} name - the name of the transaction field to update
@@ -249,29 +279,6 @@ export class selectUserByCertificateNameComponent implements OnInit {
   }
 
 
-getUserList(): Promise<any> {
-  let userList = [];
-  return this.serviceselectUserByCertificateName.getAll()
-  .toPromise()
-  .then((result) => {
-    this.errorMessage = null;
-    result.forEach(userId => {
-      userList.push(userId);
-    });
-    this.myUserList = userList;
-  })
-  .catch((error) => {
-      if(error == 'Server error'){
-          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-      }
-      else if(error == '404 - Not Found'){
-      this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-      }
-      else{
-          this.errorMessage = error;
-      }
-  });
-}
 
 
 
