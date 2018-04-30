@@ -1,0 +1,88 @@
+
+namespace hansung.ac.kr.assets
+import hansung.ac.kr.participants.*
+
+
+
+asset ResumeInfoUser identified by assetId {
+    o String assetId
+    o DateTime dob
+    o String supportField
+    o String salaryRequirement regex=/[1-9][0-9]{2,}/ optional
+    o String majorActivities optional
+    o String socialExperience optional
+    o String skillsAndCapabilities optional
+    o Boolean publicOnOff
+
+    --> Certificate[] certificateList optional
+    --> AwardDetails[] awardList optional
+    --> UserInfoInEnt[] userInfoInEnt optional
+    --> UserInfoInSch[] userInfoInSch optional
+}
+
+
+asset Certificate identified by assetId {
+    o String assetId 
+    o String ownerId
+    o String parentResumeId
+    o String certificateName
+    o Integer certificateScore  range=[0,] optional
+	--> Organization issuingOrg
+    o String organizationName
+    o DateTime dob
+    o DateTime expirationDate optional
+    o DateTime transactionTime
+    o Boolean publicOnOff
+}
+
+asset AwardDetails identified by assetId {
+   o String assetId
+   o String ownerId
+   o String parentResumeId
+   o String contestName
+   --> Organization issuingOrg
+   o String organizationName
+   o DateTime dateOfAward
+   o DateTime transactionTime
+   o String awardGrade optional 
+   o String description optional
+   o Boolean publicOnOff 
+}
+
+asset UserInfoInEnt identified by assetId {
+    o String assetId
+    o String ownerId
+    o String parentResumeId
+    --> Enterprise issuingEnt
+    o String enterpriseName
+	o String userPosition
+    o String performingTask
+    o DateTime dateOfEmployment optional
+    o DateTime retirementDate optional
+    o DateTime transactionTime
+    o Boolean publicOnOff 
+}
+
+asset UserInfoInSch identified by assetId {
+    o String assetId
+    o String ownerId
+    o String parentResumeId
+    --> School issuingSch
+    o String schoolName
+  	o DateTime entranceDate
+    o DateTime graduationDate optional
+    o DateTime transactionTime
+    o String majorField optional
+    o Double gradeAverage  range=[0.0, 4.5] optional
+    o Boolean publicOnOff 
+}
+
+
+concept Address {
+    o String street
+    o String house
+    o String city
+    o String county
+    o String country
+    o String zip
+}

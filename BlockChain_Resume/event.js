@@ -22,8 +22,6 @@
 
  * limitations under the License.
 
- * gg
-
  */
 
 
